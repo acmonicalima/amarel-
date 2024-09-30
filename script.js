@@ -2,6 +2,8 @@ const canvas = document.getElementById('gameCanvas');
 const context = canvas.getContext('2d');
 const scoreBoard = document.getElementById('score');
 const startButton = document.getElementById('startButton');
+const introModal = document.getElementById('introModal'); // Remova se não existir
+const gameArea = document.getElementById('gameArea'); // Remova se não existir
 
 let score = 0;
 let shapes = [];
@@ -97,6 +99,26 @@ function checkCollisions() {
                 "Tente de novo!",
                 "Cada erro é uma lição!",
                 "A prática leva à perfeição!",
+                "Acredite em você mesmo e tudo será possível,",
+                "Cada passo conta, mesmo os pequenos,",
+                "Você é mais forte do que imagina,",
+                "Desafios são oportunidades disfarçadas,",
+                "Não tenha medo de falhar; tenha medo de não tentar,",
+                "O sucesso é a soma de pequenos esforços repetidos,",
+                "Você tem o poder de mudar sua história,",
+                "Confie no processo e mantenha o foco,",
+                "O único limite é aquele que você impõe a si mesmo,",
+                "A jornada é tão importante quanto o destino,",
+                "Seja a mudança que você deseja ver no mundo,",
+                "Cada dia é uma nova chance para recomeçar,",
+                "Seja gentil consigo mesmo; você está fazendo o melhor que pode,",
+                "Sonhar grande é o primeiro passo para realizar,",
+                "A determinação é a chave para abrir novas portas,",
+                "Aprenda com os erros e siga em frente,",
+                "Sua atitude determina sua direção,",
+                "Lembre-se: grandes realizações começam com a decisão de tentar,",
+                "O que você faz hoje pode mudar o seu amanhã,",
+                "Acredite nos seus sonhos, e eles começarão a se tornar realidade,",
             ];
             const randomMessage = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
             alert(`Game Over! Sua pontuação: ${score}\n${randomMessage}`);
@@ -149,8 +171,15 @@ function movePlayer(event) {
 
 // Iniciar o jogo
 startButton.addEventListener('click', () => {
+    // Mostrar a área do jogo e esconder a introdução
     resetGame();
     gameInterval = setInterval(update, 100); // Atualiza o jogo a cada 100 ms
+
+    // Toca a música
+    const music = document.getElementById('gameMusic');
+    music.play().catch(error => {
+        console.log('Não foi possível tocar a música:', error);
+    });
 });
 
 // Adicionar evento de teclado

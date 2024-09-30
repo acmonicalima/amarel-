@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capture as Formas!</title>
+    <title>Amarelô!</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             display: flex;
@@ -23,13 +24,28 @@
             font-size: 24px;
             margin: 10px;
         }
+        #introText {
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;"> Amarelô</h1>
+    <h1>Amarelô</h1>
     <div id="score">Pontuação: 0</div>
     <button id="startButton">Iniciar Jogo</button>
     <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <div id="introText">
+        <h2>Bem-vindo!!</h2>
+        <p>Você verá um círculo na tela quando iniciar o jogo. Ele é você!</p>
+        <p>A felicidade são as formas em amarelo, corra e pegue-as.</p>
+        <p>Algumas vezes aparecerão formas em vermelho, são as dificuldades, contorne-as.</p>
+        <p>Eu acredito em Você!!!</p>
+    </div>
+
+    <audio id="gameMusic" src="C:\Users\Mônica\Desktop\FLV HOJE\Funky Carioca - Quincas Moreira.mp3" loop></audio>
+
     <script src="script.js"></script>
 </body>
 </html>
