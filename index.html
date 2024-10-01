@@ -47,5 +47,93 @@
     <audio id="gameMusic" src="C:\Users\Mônica\Desktop\FLV HOJE\Funky Carioca - Quincas Moreira.mp3" loop></audio>
 
     <script src="script.js"></script>
+    <script>
+        // Variáveis do jogo
+        let pontuacao = 0; 
+        let jogoInterval;
+        let jogador; // Representa o jogador
+        let formasVermelhas = []; // Armazena as formas vermelhas
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Função para criar uma forma vermelha
+        function criarFormaVermelha() {
+            const forma = {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                tamanho: 30
+            };
+            formasVermelhas.push(forma);
+        }
+
+        function finalizarJogo() {
+            document.getElementById('score').textContent = 'Pontuação: 0'; // Reseta a pontuação no display
+            gameMusic.pause(); // Para a música
+            gameMusic.currentTime = 0; // Reseta a música para o início
+            alert("Game Over!"); // Mensagem de Game Over
+            formasVermelhas = []; // Limpa as formas
+            clearInterval(jogoInterval); // Para o intervalo do jogo
+        }
+
+        function verificarColisao() {
+            for (let forma of formasVermelhas) {
+                const distX = jogador.x - forma.x;
+                const distY = jogador.y - forma.y;
+                const distancia = Math.sqrt(distX * distX + distY * distY);
+
+                if (distancia < jogador.tamanho + forma.tamanho) {
+                    return true; // Colisão detectada
+                }
+            }
+            return false; // Sem colisão
+        }
+
+        // Função para iniciar o jogo
+        function iniciarJogo() {
+            pontuacao = 0; // Reseta a pontuação
+            document.getElementById('score').textContent = 'Pontuação: ' + pontuacao; // Exibe a pontuação inicial
+            gameMusic.play(); // Toca a música ao iniciar o jogo
+
+            jogador = {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                tamanho: 20
+            };
+
+            // Inicia o intervalo do jogo
+            jogoInterval = setInterval(() => {
+                pontuacao += 10; // Aumenta a pontuação a cada intervalo
+                document.getElementById('score').textContent = 'Pontuação: ' + pontuacao; // Atualiza a pontuação na tela
+
+                // Criar formas vermelhas aleatórias
+                if (Math.random() < 0.1) { // 10% de chance de criar uma forma vermelha a cada intervalo
+                    criarFormaVermelha();
+                }
+
+                // Verifica se houve colisão
+                if (verificarColisao()) {
+                    finalizarJogo(); // Finaliza o jogo
+                }
+
+                // Desenhar jogador e formas vermelhas
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas
+                ctx.fillStyle = 'yellow';
+                ctx.beginPath();
+                ctx.arc(jogador.x, jogador.y, jogador.tamanho, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = 'red'; // Cor das formas vermelhas
+                for (let forma of formasVermelhas) {
+                    ctx.beginPath();
+                    ctx.arc(forma.x, forma.y, forma.tamanho, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+            }, 1000); // Atualiza a pontuação a cada segundo
+        }
+
+        // Adiciona o evento de clique ao botão de iniciar
+        document.getElementById('startButton').addEventListener('click', iniciarJogo);
+    </script>
 </body>
 </html>
